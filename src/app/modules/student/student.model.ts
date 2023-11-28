@@ -2,13 +2,14 @@ import { Schema, model } from 'mongoose';
 import validator from 'validator';
 
 import {
-  Guardian,
-  Student,
-  UserName,
-  LocalGuardian,
-} from './student/student.interface';
+  TGuardian,
+  TStudent,
+  TUserName,
+  TLocalGuardian,
+  StudentModel,
+} from './student.interface';
 
-const userNameSchema = new Schema<UserName>({
+const userNameSchema = new Schema<TUserName>({
   firstName: {
     type: String,
     required: [true, 'First Name is Required'],
@@ -35,7 +36,7 @@ const userNameSchema = new Schema<UserName>({
   },
 });
 
-const guardianSchema = new Schema<Guardian>({
+const guardianSchema = new Schema<TGuardian>({
   fatherName: { type: String, required: true },
   fatherOccupation: { type: String, required: true },
   fatherContactNo: { type: String, required: true },
@@ -44,15 +45,22 @@ const guardianSchema = new Schema<Guardian>({
   motherContactNo: { type: String, required: true },
 });
 
-const localGuardianSchema = new Schema<LocalGuardian>({
+const localGuardianSchema = new Schema<TLocalGuardian>({
   name: { type: String, required: true },
   occupation: { type: String, required: true },
   contactNo: { type: String, required: true },
   address: { type: String, required: true },
 });
 
-const studentSchema = new Schema<Student>({
+
+const studentSchema = new Schema<TStudent, StudentModel>({
   id: { type: String, required: true, unique: true },
+  user: {
+    type: Schema.Types.ObjectId,
+    required: [true, "User Id is required"],
+    unique: true,
+    ref: 'User'
+  },
   name: {
     type: userNameSchema,
     required: true,
@@ -83,8 +91,30 @@ const studentSchema = new Schema<Student>({
   guardian: { type: guardianSchema, required: true },
   localGuardian: { type: localGuardianSchema, required: true },
   profileImg: { type: String },
-  isActive: { type: String, enum: ['active', 'blocked'], default: "active" },
-});
+  isDeleted: {
+    type: Boolean,
+    default: false,
+  }
+},
+  {
+    toJSON: {
+      virtuals: true,
+    }
+  }
+);
+
+// virtual
+studentSchema.virtual('fullName').get(function () {
+  return this.name.firstName + this.name.middleName + this.name.lastName;
+})
+
+// creating a custom static method
+studentSchema.statics.isUserExists = async function (id: string) {
+  const existingUser = await Student.findOne({ id });
+
+  return existingUser;
+}
+
 
 // Create a Model
-export const StudentModel = model<Student>('Student', studentSchema);
+export const Student = model<TStudent, StudentModel>('Student', studentSchema);
