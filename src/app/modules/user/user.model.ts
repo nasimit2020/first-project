@@ -22,7 +22,7 @@ userSchema.pre('save', async function (next) {
 
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const user = this;
-    //hasing password and Save your password in DB.
+    //hashing password and Save your password in DB.
     user.password = await bcrypt.hash(user.password, Number(config.bcrypt_salt_rounds));
     next();
 })
@@ -31,7 +31,6 @@ userSchema.pre('save', async function (next) {
 userSchema.post('save', function (doc, next) {
     doc.password = ''
     next();
-    console.log(this, 'post hook : we saved our data');
 })
 
 export const User = model<TUser>('User', userSchema)
