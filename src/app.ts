@@ -15,12 +15,12 @@ app.use(cors());
 // application routes
 app.use('/api/v1/', router);
 
-const rest = (req: Request, res: Response) => {
+const test = async (req: Request, res: Response) => {
   const a = 10;
   res.send(a);
 };
 
-app.get('/', rest);
+app.get('/', test);
 
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
