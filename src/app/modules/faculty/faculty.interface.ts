@@ -12,8 +12,8 @@ export type TBloodGroup = 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-
 export type TFaculty = {
     id: string,
     user: Types.ObjectId,
-    designation: string,
     name: TFacultyName,
+    designation: string,
     gender: TGender,
     dateOfBirth?: Date,
     email: string,
