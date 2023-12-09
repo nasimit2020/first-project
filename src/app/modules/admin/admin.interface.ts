@@ -1,4 +1,4 @@
-import { Types } from "mongoose";
+import { Model, Types } from "mongoose";
 
 export type TAdminName = {
     firstName: string;
@@ -9,7 +9,7 @@ export type TAdminName = {
 export type TGender = 'male' | 'female' | 'other';
 export type TBloodGroup = 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-';
 
-type TAdmin = {
+export type TAdmin = {
     id: string;
     user: Types.ObjectId;
     name: TAdminName;
@@ -26,4 +26,7 @@ type TAdmin = {
     isDeleted: boolean;
 }
 
-export default TAdmin;
+export interface AdminModel extends Model<TAdmin> {
+    // eslint-disable-next-line no-unused-vars
+    isUserExists(id: string): Promise<TAdmin | null>;
+}
