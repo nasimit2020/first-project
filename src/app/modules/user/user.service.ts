@@ -126,14 +126,12 @@ const createAdminIntoDB = async (password: string, payload: TAdmin) => {
 
         const newAdmin = await Admin.create([payload], { session });
         if (!newAdmin) {
-            throw new AppError(httpStatus.BAD_REQUEST, 'Failed to Create Faculty')
+            throw new AppError(httpStatus.BAD_REQUEST, 'Failed to Create Admin')
         }
 
         await session.commitTransaction();
         await session.endSession();
         return newAdmin;
-
-
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         await session.abortTransaction();
