@@ -22,7 +22,7 @@ export type TFaculty = {
     bloodGroup: TBloodGroup,
     presentAddress: string,
     permanentAddress: string,
-    profileImage: string,
+    profileImg?: string,
     academicDepartment: Types.ObjectId,
     isDeleted: boolean,
 }
