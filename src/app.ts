@@ -12,23 +12,24 @@ const app: Application = express();
 //parsers
 app.use(express.json());
 app.use(cookieParser())
-app.use(cors({ origin: ['http://localhost:5173'] }));
+app.use(cors({
+    origin: ['http://localhost:5173'],
+    credentials: true
+}));
 
 // application routes
 app.use('/api/v1/', router);
 
-const test = async (req: Request, res: Response) => {
-  const a = 10;
-  res.send(a);
-};
+// const test = async (req: Request, res: Response) => {
+//   const a = 100
+//   res.sendStatus(a);
+// };
 
-app.get('/', test);
+// app.get('/', test);
 
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 app.use(globalErrorHandler);
-
-
 
 //Not Found
 app.use(notFound);
