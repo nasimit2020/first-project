@@ -21,7 +21,7 @@ const facultySchema = new Schema<TFaculty>({
     bloodGroup: { type: String, enum: { values: BloodGroup, message: '{VALUE} is not a valid blood group' } },
     presentAddress: { type: String, required: [true, 'Present address is required'], },
     permanentAddress: { type: String, required: [true, 'Permanent address is required'], },
-    profileImg: { type: String, required: true },
+    profileImg: { type: String, default: '' },
     academicDepartment: { type: Schema.Types.ObjectId, ref: 'AcademicDepartment' },
     isDeleted: { type: Boolean, default: false },
 }, {

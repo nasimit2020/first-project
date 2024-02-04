@@ -7,7 +7,7 @@ const superUser = {
     email: 'nasimitjesbd@gmail.com',
     password: config.super_admin_password,
     needsPasswordChange: false,
-    role: 'super-admin',
+    role: USER_ROLE.superAdmin,
     status: 'in-progress',
     isDeleted: false,
 }

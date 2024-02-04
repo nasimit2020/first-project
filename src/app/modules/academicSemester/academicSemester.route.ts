@@ -7,7 +7,8 @@ import auth from '../../middlewares/auth';
 const router = express.Router();
 
 router.post(
-    '/create-academic-router',
+    '/create-academic-semester',
+    auth('admin'),
     validateRequest(AcademicSemesterValidations.createAcademicSemesterValidationSchema),
     AcademicSemesterControllers.createAcademicSemester
 )
