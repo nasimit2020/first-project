@@ -18,7 +18,6 @@ const createSemesterRegistrationIntoDB = async (payload: TSemesterRegistration) 
         throw new AppError(httpStatus.BAD_REQUEST, `There is already a ${isThereAnyUpcomingOrOngoingSemester.status} registered semester!`)
     }
 
-
     // check if the academic semester is exist
 
     const isAcademicSemesterExist = await AcademicSemester.findById(academicSemester);
@@ -41,7 +40,8 @@ const getAllSemesterRegistrationFromDB = async (query: Record<string, unknown>) 
     const semesterRegistrationQuery = new QueryBuilder(SemesterRegistration.find().populate('academicSemester'), query).filter().sort().paginate().fields();
 
     const result = await semesterRegistrationQuery.modelQuery;
-    return result;
+    const meta = await semesterRegistrationQuery.countTotal();
+    return { meta, result };
 }
 
 const getSingleSemesterRegistrationFromDB = async (id: string) => {

@@ -19,10 +19,11 @@ const facultySchema = new Schema<TFaculty>({
     contactNo: { type: String, required: [true, 'Contact No is Required'] },
     emergencyContactNo: { type: String, required: [true, 'Emergency contact no is required'] },
     bloodGroup: { type: String, enum: { values: BloodGroup, message: '{VALUE} is not a valid blood group' } },
-    presentAddress: { type: String, required: [true, 'Present address is required'], },
-    permanentAddress: { type: String, required: [true, 'Permanent address is required'], },
+    presentAddress: { type: String, required: [true, 'Present address is required'] },
+    permanentAddress: { type: String, required: [true, 'Permanent address is required'] },
     profileImg: { type: String, default: '' },
-    academicDepartment: { type: Schema.Types.ObjectId, ref: 'AcademicDepartment' },
+    academicDepartment: { type: Schema.Types.ObjectId, ref: 'AcademicDepartment', required: [true, 'Academic Department is required'] },
+    academicFaculty: { type: Schema.Types.ObjectId, ref: 'AcademicFaculty', required: [true, 'Academic Faculty is required'] },
     isDeleted: { type: Boolean, default: false },
 }, {
     toJSON: {
@@ -33,9 +34,9 @@ const facultySchema = new Schema<TFaculty>({
 facultySchema.virtual('fullName').get(function () {
     return (
         this?.name?.firstName +
-        '' +
+        ' ' +
         this?.name?.middleName +
-        '' +
+        ' ' +
         this?.name?.lastName
     )
 });

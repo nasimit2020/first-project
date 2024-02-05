@@ -21,7 +21,8 @@ const getAllSemesterRegistration = catchAsync(async (req, res) => {
         statusCode: httpStatus.OK,
         success: true,
         message: 'All semester register is retrieved successfully',
-        data: result
+        meta: result.meta,
+        data: result.result,
     })
 })
 
