@@ -103,9 +103,6 @@ const getMyOfferedCourseFromDB = async (userId: string, query: Record<string, un
     const skip = (page - 1) * limit;
 
 
-
-
-
     const student = await Student.findOne({ id: userId });
 
     if (!student) {

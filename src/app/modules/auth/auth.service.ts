@@ -74,16 +74,16 @@ const changePassword = async (userData: JwtPayload, payload: { oldPassword: stri
     }
 
     // checking if the password is correct
-    if (!(await User.isPasswordMatched(payload?.oldPassword, user?.password))) {
+    if (!(await User.isPasswordMatched(payload.oldPassword, user?.password))) {
         throw new AppError(httpStatus.FORBIDDEN, 'Password do not match!')
     }
 
     // hash new password
-    const newHashedPassword = await bcrypt.hash(payload?.newPassword, Number(config.bcrypt_salt_rounds),);
+    const newHashedPassword = await bcrypt.hash(payload.newPassword, Number(config.bcrypt_salt_rounds),);
 
     await User.findOneAndUpdate(
         {
-            id: userData.id,
+            id: userData.userId,
             role: userData.role,
         },
         {

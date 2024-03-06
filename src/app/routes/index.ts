@@ -33,7 +33,7 @@ const moduleRoutes = [
         route: AdminRoutes
     },
     {
-        path: '/academic-semester',
+        path: '/academic-semesters',
         route: AcademicSemesterRoutes
     },
     {

@@ -102,7 +102,6 @@ const assignFacultiesWithCourseIntoDB = async (id: string, payload: Partial<TCou
 
 const getFacultiesWithCourseFromDB = async (courseId: string) => {
     const result = await CourseFaculty.findOne({ course: courseId }).populate('faculties')
-    console.log(result);
     return result;
 }
 
